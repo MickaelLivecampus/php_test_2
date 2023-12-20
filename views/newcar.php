@@ -7,6 +7,7 @@ require_once('./../controllers/clientController.php');
 require_once('./../utils/form.php');
 
 $clientsOptions = getClients();
+$error = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $marque = filter_input(INPUT_POST, 'marque');
@@ -15,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $client_id = filter_input(INPUT_POST, 'client_id');
     $csrfToken = filter_input(INPUT_POST, "csrf_token");
 
-    $error = false;
     $reponse = null;
 
     if (verifyCSRFToken($csrfToken)) {
