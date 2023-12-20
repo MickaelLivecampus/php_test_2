@@ -1,7 +1,7 @@
 <?php
 // Step 1 : Start the session
-ob_start();
 session_start();
+ob_start();
 
 // redirect the user if is not logged in, disable the redirection in login form
 if(!isset($_SESSION["loggedin"]) && $_SERVER['REQUEST_URI'] != '/views/login.php') {
