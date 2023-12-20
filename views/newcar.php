@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response = createCar($marque, $modele, $annee, $client_id);
         if ($response["success"]) {
             header('Location: ./car.php');
+            exit();
         } else {
             $error = $response["error"];
         }

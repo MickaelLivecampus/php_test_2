@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
         if ($response["success"]) {
             header('Location: ./car.php');
+            exit();
         } else {
             $error = $response["error"];
         }
