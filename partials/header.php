@@ -1,5 +1,6 @@
 <?php
 // Step 1 : Start the session
+ob_start();
 session_start();
 
 // redirect the user if is not logged in, disable the redirection in login form
