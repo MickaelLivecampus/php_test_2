@@ -22,6 +22,24 @@ function getPDO() {
     return $pdo ? $pdo : $e;
 }
 
+function getTestingPDO() {
+    $dbHost = $_ENV['MYSQL_HOST'];
+    $dbPort = $_ENV['MYSQL_PORT'];
+    $dbName = $_ENV['MYSQL_DATABASE_TEST'];
+    $dbUsername = $_ENV['MYSQL_USER'];
+    $dbPassword = $_ENV['MYSQL_PASSWORD'];
+
+    $pdo = NULL;
+    try {
+        $pdo = new PDO("mysql:host=" . $dbHost . ":" .  $dbPort . ";dbname=" . $dbName , $dbUsername, $dbPassword);
+    } catch(PDOException $e) {
+        http_response_code(500);
+        echo "Unable to connect to database" . $e;
+        exit();
+    }
+    return $pdo ? $pdo : $e;
+}
+
 function connectDB()
 {
 

@@ -4,22 +4,25 @@ require_once('./../partials/header.php');
 require_once("./../security/csrfToken.php");
 require_once('./../controllers/carController.php');
 require_once('./../controllers/clientController.php');
-require_once('./../utils/form.php');
+
+require_once __DIR__ . '/../config/db.php';
+
+$carController = new CarController(getPDO());
 
 $clientsOptions = getClients();
 $error = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $marque = filter_input(INPUT_POST, 'marque');
-    $modele = filter_input(INPUT_POST, 'modele');
-    $annee = filter_input(INPUT_POST, 'annee');
-    $client_id = filter_input(INPUT_POST, 'client_id');
+    $marque = htmlspecialchars(filter_input(INPUT_POST, 'marque'));
+    $modele = htmlspecialchars(filter_input(INPUT_POST, 'modele'));
+    $annee = htmlspecialchars(filter_input(INPUT_POST, 'annee'));
+    $client_id = htmlspecialchars(filter_input(INPUT_POST, 'client_id'));
     $csrfToken = filter_input(INPUT_POST, "csrf_token");
 
     $reponse = null;
 
     if (verifyCSRFToken($csrfToken)) {
-        $response = createCar($marque, $modele, $annee, $client_id);
+        $response = $carController->create($marque, $modele, $annee, $client_id);
         if ($response["success"]) {
             header('Location: ./car.php');
             exit();

@@ -4,8 +4,8 @@ require_once('./../partials/header.php');
 require_once("./../security/csrfToken.php");
 require_once("./../controllers/userControllers.php");
 
-$username = filter_input(INPUT_POST, "username");
-$password = filter_input(INPUT_POST, "password");
+$username = htmlspecialchars(filter_input(INPUT_POST, "username"));
+$password = htmlspecialchars(filter_input(INPUT_POST, "password"));
 
 if (verifyCSRFToken($csrfToken)) {
     createUser($username, $password);

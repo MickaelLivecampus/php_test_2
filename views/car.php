@@ -3,21 +3,20 @@
 require_once('./../partials/header.php');
 require_once("./../security/csrfToken.php");
 require_once('./../controllers/carController.php');
-require_once('./../utils/form.php');
+require_once __DIR__ . '/../config/db.php';
 
-$vehicules = getAllCars();
+$carController = new CarController(getPDO());
+
+$vehicules = $carController->findAll();
 $error = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['vehicule_id'])) {
-    $vehiculeId = filter_input(INPUT_POST, 'vehicule_id');
+    $vehiculeId = htmlspecialchars(filter_input(INPUT_POST, 'vehicule_id'));
     $csrfToken = filter_input(INPUT_POST, "csrf_token");
 
-    if ($vehiculeId === null || !is_numeric($vehiculeId)) {
-        $error = "Id of vehicle not valid";
-    }
 
     if (verifyCSRFToken($csrfToken)) {
-        $result = deleteCar($vehiculeId);
+        $result = $carController->destroy($vehiculeId);
     
         if ($result["success"]) {
             header('Location: ./car.php');

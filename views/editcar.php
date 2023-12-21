@@ -4,26 +4,28 @@ require_once('./../partials/header.php');
 require_once("./../security/csrfToken.php");
 require_once('./../controllers/carController.php');
 require_once('./../controllers/clientController.php');
-require_once('./../utils/form.php');
+require_once __DIR__ . '/../config/db.php';
+
+$carController = new CarController(getPDO());
 
 $clientsOptions = getClients();
 // get the id from the url parameter
 $vehiculeId = isset($_GET['id']) ? intval($_GET['id']) : null;
 $error = false;
 
-$response = getByIdCar($vehiculeId);
+$response = $carController->findById($vehiculeId);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $marque = filter_input(INPUT_POST, 'marque');
-    $modele = filter_input(INPUT_POST, 'modele');
-    $annee = filter_input(INPUT_POST, 'annee');
-    $client_id = filter_input(INPUT_POST, 'client_id');
-    $vehiculeId = filter_input(INPUT_POST, 'vehicle_id');
+    $marque = htmlspecialchars(filter_input(INPUT_POST, 'marque'));
+    $modele = htmlspecialchars(filter_input(INPUT_POST, 'modele'));
+    $annee = htmlspecialchars(filter_input(INPUT_POST, 'annee'));
+    $clientId = htmlspecialchars(filter_input(INPUT_POST, 'client_id'));
+    $vehiculeId = htmlspecialchars(filter_input(INPUT_POST, 'vehicle_id'));
     $csrfToken = filter_input(INPUT_POST, "csrf_token");
 
     if (verifyCSRFToken($csrfToken)) {
-        $response = editCar($marque, $modele, $annee, $client_id, $vehiculeId);
+        $response = $carController->update($marque, $modele, $annee, $clientId, $vehiculeId);
     
         if ($response["success"]) {
             header('Location: ./car.php');

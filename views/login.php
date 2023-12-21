@@ -7,8 +7,8 @@ require_once("./../security/csrfToken.php");
 $error = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = filter_input(INPUT_POST, "username");
-    $password = filter_input(INPUT_POST, "password");
+    $username = htmlspecialchars(filter_input(INPUT_POST, "username"));
+    $password = htmlspecialchars(filter_input(INPUT_POST, "password"));
     $csrfToken = filter_input(INPUT_POST, "csrf_token");
 
 
