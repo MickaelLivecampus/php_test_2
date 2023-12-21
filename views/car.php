@@ -11,7 +11,7 @@ $vehicules = $carController->findAll();
 $error = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['vehicule_id'])) {
-    $vehiculeId = htmlspecialchars(filter_input(INPUT_POST, 'vehicule_id'));
+    $vehiculeId = htmlspecialchars(filter_input(INPUT_POST, 'vehicule_id'), ENT_QUOTES);
     $csrfToken = filter_input(INPUT_POST, "csrf_token");
 
 

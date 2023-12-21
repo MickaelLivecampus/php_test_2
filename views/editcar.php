@@ -17,11 +17,11 @@ $response = $carController->findById($vehiculeId);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $marque = htmlspecialchars(filter_input(INPUT_POST, 'marque'));
-    $modele = htmlspecialchars(filter_input(INPUT_POST, 'modele'));
-    $annee = htmlspecialchars(filter_input(INPUT_POST, 'annee'));
-    $clientId = htmlspecialchars(filter_input(INPUT_POST, 'client_id'));
-    $vehiculeId = htmlspecialchars(filter_input(INPUT_POST, 'vehicle_id'));
+    $marque = htmlspecialchars(filter_input(INPUT_POST, 'marque'), ENT_QUOTES);
+    $modele = htmlspecialchars(filter_input(INPUT_POST, 'modele'), ENT_QUOTES);
+    $annee = htmlspecialchars(filter_input(INPUT_POST, 'annee'), ENT_QUOTES);
+    $clientId = htmlspecialchars(filter_input(INPUT_POST, 'client_id'), ENT_QUOTES);
+    $vehiculeId = htmlspecialchars(filter_input(INPUT_POST, 'vehicle_id'), ENT_QUOTES);
     $csrfToken = filter_input(INPUT_POST, "csrf_token");
 
     if (verifyCSRFToken($csrfToken)) {

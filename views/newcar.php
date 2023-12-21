@@ -13,10 +13,10 @@ $clientsOptions = getClients();
 $error = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $marque = htmlspecialchars(filter_input(INPUT_POST, 'marque'));
-    $modele = htmlspecialchars(filter_input(INPUT_POST, 'modele'));
-    $annee = htmlspecialchars(filter_input(INPUT_POST, 'annee'));
-    $client_id = htmlspecialchars(filter_input(INPUT_POST, 'client_id'));
+    $marque = htmlspecialchars(filter_input(INPUT_POST, 'marque'), ENT_QUOTES);
+    $modele = htmlspecialchars(filter_input(INPUT_POST, 'modele'), ENT_QUOTES);
+    $annee = htmlspecialchars(filter_input(INPUT_POST, 'annee'), ENT_QUOTES);
+    $client_id = htmlspecialchars(filter_input(INPUT_POST, 'client_id'), ENT_QUOTES);
     $csrfToken = filter_input(INPUT_POST, "csrf_token");
 
     $reponse = null;
